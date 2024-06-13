@@ -16,6 +16,6 @@ public class DkdApplication
     {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(DkdApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  帝可得启动成功   ლ(´ڡ`ლ)ﾞ");
+        System.out.println("(♥◠‿◠)ﾉﾞ  启动成功   ლ(´ڡ`ლ)ﾞ");
     }
 }
