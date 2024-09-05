@@ -1,10 +1,18 @@
 package com.dkd.jobpositions.service.impl;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 class JobpositionsServiceImplTest {
 
-    @org.junit.jupiter.api.Test
+//    @Autowired
+//    private JobpositionsServiceImpl jobpositionsService;
+//
+//    @Test
+//    void selectJobpositionsAllList() {
+//        jobpositionsService.selectJobpositionsList(null);
+//    }
+    @Test
     void selectJobpositionsByPositionId() {
     }
 
