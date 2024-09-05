@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dkd.jobpositions.mapper.JobpositionsMapper">
+    
+    <resultMap type="Jobpositions" id="JobpositionsResult">
+        <result property="positionId"    column="position_id"    />
+        <result property="companyId"    column="company_id"    />
+        <result property="jobTypeId"    column="job_type_id"    />
+        <result property="positionName"    column="position_name"    />
+        <result property="positionLocation"    column="position_location"    />
+        <result property="description"    column="description"    />
+        <result property="department"    column="department"    />
+        <result property="Requirement"    column="Requirement"    />
+        <result property="salaryRange"    column="salary_range"    />
+        <result property="vacancies"    column="vacancies"    />
+        <result property="postingDate"    column="posting_date"    />
+        <result property="deadline"    column="deadline"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectJobpositionsVo">
+        select position_id, company_id, job_type_id, position_name, position_location, description, department, Requirement, salary_range, vacancies, posting_date, deadline, status from tb_jobpositions
+    </sql>
+
+    <select id="selectJobpositionsList" parameterType="Jobpositions" resultMap="JobpositionsResult">
+        <include refid="selectJobpositionsVo"/>
+        <where>  
+            <if test="companyId != null "> and company_id = #{companyId}</if>
+            <if test="positionName != null  and positionName != ''"> and position_name like concat('%', #{positionName}, '%')</if>
+            <if test="positionLocation != null  and positionLocation != ''"> and position_location like concat('%', #{positionLocation}, '%')</if>
+            <if test="department != null  and department != ''"> and department = #{department}</if>
+            <if test="Requirement != null  and Requirement != ''"> and Requirement like concat('%', #{Requirement}, '%')</if>
+            <if test="salaryRange != null  and salaryRange != ''"> and salary_range = #{salaryRange}</if>
+            <if test="vacancies != null  and vacancies != ''"> and vacancies = #{vacancies}</if>
+            <if test="postingDate != null "> and posting_date = #{postingDate}</if>
+            <if test="deadline != null "> and deadline = #{deadline}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectJobpositionsByPositionId" parameterType="Long" resultMap="JobpositionsResult">
+        <include refid="selectJobpositionsVo"/>
+        where position_id = #{positionId}
+    </select>
+        
+    <insert id="insertJobpositions" parameterType="Jobpositions" useGeneratedKeys="true" keyProperty="positionId">
+        insert into tb_jobpositions
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">company_id,</if>
+            <if test="jobTypeId != null">job_type_id,</if>
+            <if test="positionName != null and positionName != ''">position_name,</if>
+            <if test="positionLocation != null and positionLocation != ''">position_location,</if>
+            <if test="description != null">description,</if>
+            <if test="department != null">department,</if>
+            <if test="Requirement != null">Requirement,</if>
+            <if test="salaryRange != null">salary_range,</if>
+            <if test="vacancies != null">vacancies,</if>
+            <if test="postingDate != null">posting_date,</if>
+            <if test="deadline != null">deadline,</if>
+            <if test="status != null and status != ''">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">#{companyId},</if>
+            <if test="jobTypeId != null">#{jobTypeId},</if>
+            <if test="positionName != null and positionName != ''">#{positionName},</if>
+            <if test="positionLocation != null and positionLocation != ''">#{positionLocation},</if>
+            <if test="description != null">#{description},</if>
+            <if test="department != null">#{department},</if>
+            <if test="Requirement != null">#{Requirement},</if>
+            <if test="salaryRange != null">#{salaryRange},</if>
+            <if test="vacancies != null">#{vacancies},</if>
+            <if test="postingDate != null">#{postingDate},</if>
+            <if test="deadline != null">#{deadline},</if>
+            <if test="status != null and status != ''">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateJobpositions" parameterType="Jobpositions">
+        update tb_jobpositions
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="companyId != null">company_id = #{companyId},</if>
+            <if test="jobTypeId != null">job_type_id = #{jobTypeId},</if>
+            <if test="positionName != null and positionName != ''">position_name = #{positionName},</if>
+            <if test="positionLocation != null and positionLocation != ''">position_location = #{positionLocation},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="department != null">department = #{department},</if>
+            <if test="Requirement != null">Requirement = #{Requirement},</if>
+            <if test="salaryRange != null">salary_range = #{salaryRange},</if>
+            <if test="vacancies != null">vacancies = #{vacancies},</if>
+            <if test="postingDate != null">posting_date = #{postingDate},</if>
+            <if test="deadline != null">deadline = #{deadline},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+        </trim>
+        where position_id = #{positionId}
+    </update>
+
+    <delete id="deleteJobpositionsByPositionId" parameterType="Long">
+        delete from tb_jobpositions where position_id = #{positionId}
+    </delete>
+
+    <delete id="deleteJobpositionsByPositionIds" parameterType="String">
+        delete from tb_jobpositions where position_id in 
+        <foreach item="positionId" collection="array" open="(" separator="," close=")">
+            #{positionId}
+        </foreach>
+    </delete>
+</mapper>
