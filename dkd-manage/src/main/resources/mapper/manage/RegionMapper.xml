@@ -73,4 +73,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <!-- selectRegionVoList --> 
+    <resultMap type="RegionVo" id="RegionVoResult" extends="RegionResult">
+        <result property="nodeCount" column="node_count" />
+    </resultMap>
+    
+    <select id="seletRegionVoList" parameterType="Region" resultMap="RegionVoResult">
+        select r.id, r.region_name, r.create_time, r.update_time, r.create_by, r.update_by, r.remark, count(n.id) as node_count 
+        from tb_region as r left join tb_node as n on r.id = n.region_id
+        <where>
+            <if test="regionName != null and regionName != ''">and r.region_name like concat('%',#{regionName},'%')</if>
+        </where>
+        group by r.id
+    </select>
 </mapper>
