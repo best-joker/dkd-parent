@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dkd.manage.mapper.RegionMapper;
 import com.dkd.manage.domain.Region;
+import com.dkd.manage.domain.vo.RegionVo;
 import com.dkd.manage.service.IRegionService;
 
 /**
@@ -93,4 +94,12 @@ public class RegionServiceImpl implements IRegionService
     {
         return regionMapper.deleteRegionById(id);
     }
+
+    @Override
+    public List<RegionVo> selectRegionVoList(Region region) {
+        List<RegionVo> seletRegionVoList = regionMapper.seletRegionVoList(region);;
+        return seletRegionVoList;
+    }
+    
+    
 }

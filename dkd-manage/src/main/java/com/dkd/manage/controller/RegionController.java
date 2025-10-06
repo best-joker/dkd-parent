@@ -17,6 +17,7 @@ import com.dkd.common.core.controller.BaseController;
 import com.dkd.common.core.domain.AjaxResult;
 import com.dkd.common.enums.BusinessType;
 import com.dkd.manage.domain.Region;
+import com.dkd.manage.domain.vo.RegionVo;
 import com.dkd.manage.service.IRegionService;
 import com.dkd.common.utils.poi.ExcelUtil;
 import com.dkd.common.core.page.TableDataInfo;
@@ -42,8 +43,9 @@ public class RegionController extends BaseController
     public TableDataInfo list(Region region)
     {
         startPage();
-        List<Region> list = regionService.selectRegionList(region);
-        return getDataTable(list);
+        // List<Region> list = regionService.selectRegionList(region);
+        List<RegionVo> selectRegionVoList = regionService.selectRegionVoList(region);
+        return getDataTable(selectRegionVoList);
     }
 
     /**
