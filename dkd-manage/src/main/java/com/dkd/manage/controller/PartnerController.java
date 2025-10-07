@@ -19,6 +19,7 @@ import com.dkd.common.enums.BusinessType;
 import com.dkd.manage.domain.Partner;
 import com.dkd.manage.domain.vo.PartnerVo;
 import com.dkd.manage.service.IPartnerService;
+import com.dkd.common.utils.SecurityUtils;
 import com.dkd.common.utils.poi.ExcelUtil;
 import com.dkd.common.core.page.TableDataInfo;
 
@@ -102,5 +103,15 @@ public class PartnerController extends BaseController
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(partnerService.deletePartnerByIds(ids));
+    }
+
+    @PreAuthorize("@ss.hasPermi('manage:partner:edit')")
+    @Log(title = "合作商", businessType = BusinessType.UPDATE)
+    @PutMapping("/resetPassword/{id}")
+    public AjaxResult resetPwd(@PathVariable Long id) {
+        Partner partner = new Partner();
+        partner.setId(id);
+        partner.setPassword(SecurityUtils.encryptPassword("123456"));
+        return toAjax(partnerService.updatePartner(partner));
     }
 }
