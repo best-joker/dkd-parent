@@ -17,6 +17,7 @@ import com.dkd.common.core.controller.BaseController;
 import com.dkd.common.core.domain.AjaxResult;
 import com.dkd.common.enums.BusinessType;
 import com.dkd.manage.domain.Partner;
+import com.dkd.manage.domain.vo.PartnerVo;
 import com.dkd.manage.service.IPartnerService;
 import com.dkd.common.utils.poi.ExcelUtil;
 import com.dkd.common.core.page.TableDataInfo;
@@ -42,8 +43,9 @@ public class PartnerController extends BaseController
     public TableDataInfo list(Partner partner)
     {
         startPage();
-        List<Partner> list = partnerService.selectPartnerList(partner);
-        return getDataTable(list);
+        // List<Partner> list = partnerService.selectPartnerList(partner);
+        List<PartnerVo> selectPartnerVoList = partnerService.selectPartnerVoList(partner);
+        return getDataTable(selectPartnerVoList);
     }
 
     /**
