@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dkd.manage.mapper.NodeMapper;
 import com.dkd.manage.domain.Node;
+import com.dkd.manage.domain.vo.NodeVo;
 import com.dkd.manage.service.INodeService;
 
 /**
@@ -93,4 +94,10 @@ public class NodeServiceImpl implements INodeService
     {
         return nodeMapper.deleteNodeById(id);
     }
+
+    @Override
+    public List<NodeVo> selectNodeVoList(Node node) {
+        return nodeMapper.selectNodeVoList(node);
+    }
+    
 }
